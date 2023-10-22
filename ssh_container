@@ -1,0 +1,14 @@
+# how to ssh container file
+## Dockerfile
+FROM ubuntu:16.04
+ENV NAME aws
+ENV PASS pass
+RUN mkdir -p /var/run/sshd
+RUN apt-get update -y
+RUN apt-get install -y openssh-server
+RUN useradd -d /home -g root -G sudo -m -p $(echo "$PASS" | openssl passwd -1 -stdin) $NAME	
+EXPOSE 22
+CMD ["/usr/sbin/sshd", "-D"]
+## command use  HOW TO SSH Continer form reomte and local machine
+# docker network C ID TAKE IP 
+# ssh aws@10.0.0.1 -p
